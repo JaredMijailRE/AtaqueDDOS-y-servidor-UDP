@@ -1,0 +1,18 @@
+services:
+  dns_udp:
+    build:
+      context: ./ServicioDNS-UDP
+      dockerfile: Dockerfile
+    container_name: dns_udp
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+  ataque_ddos:
+    build:
+      context: ./AtaqueDDoS
+      dockerfile: Dockerfile
+    container_name: ataque_ddos
+    restart: unless-stopped
