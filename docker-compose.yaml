@@ -5,14 +5,58 @@ services:
       dockerfile: Dockerfile
     container_name: dns_udp
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 1G
   ataque_ddos:
     build:
       context: ./AtaqueDDoS
       dockerfile: Dockerfile
     container_name: ataque_ddos
-    restart: unless-stopped
+    restart: no
+    environment:
+      - REQUESTS=10000
+    volumes:
+      - ./resultados:/app/resultados
+  cliente_normal1:
+    build:
+      context: ./AtaqueDDoS
+      dockerfile: Dockerfile
+    container_name: cliente_normal1
+    restart: no
+    environment:
+      - REQUESTS=100
+    volumes:
+      - ./resultados:/app/resultados
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128Mb
+  cliente_normal2:
+    build:
+      context: ./AtaqueDDoS
+      dockerfile: Dockerfile
+    container_name: cliente_normal2
+    restart: no
+    environment:
+      - REQUESTS=100
+    volumes:
+      - ./resultados:/app/resultados
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128Mb
+  cliente_normal3:
+    build:
+      context: ./AtaqueDDoS
+      dockerfile: Dockerfile
+    container_name: cliente_normal3
+    restart: no
+    environment:
+      - REQUESTS=100
+    volumes:
+      - ./resultados:/app/resultados
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 128Mb
